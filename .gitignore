@@ -1,0 +1,10 @@
+.bundle
+log/*.log
+tmp/**/*
+log
+tmp
+*.sqlite3
+.DS_Store
+.jhw-cache
+node_modules
+*.swp
