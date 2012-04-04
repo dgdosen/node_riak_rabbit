@@ -1,9 +1,5 @@
 express = require("express")
 jade = require ("jade")
-db = require("riak-js").getClient(
-  host: "127.0.0.1"
-  port: "8091"
-)
 # rabbitHub = require("rabbitmq-nodejs-client")
 context = require("rabbit.js").createContext("amqp://localhost")
 # sockjs = require("sockjs")
