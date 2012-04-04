@@ -4,8 +4,9 @@ db = require("riak-js").getClient(
   host: "127.0.0.1"
   port: "8091"
 )
-context = require("rabbit.js").createContext("amqp://localhost")
-sockjs = require("sockjs")
+rabbitHub = require("rabbitmq-nodejs-client")
+# context = require("rabbit.js").createContext("amqp://localhost")
+# sockjs = require("sockjs")
 
 app = module.exports = express.createServer()
 app.configure ->
@@ -27,23 +28,42 @@ app.configure "production", ->
 
 app.get "/mq", (req, res) ->
   console.log "reading queue"
-  rep = context.socket("SUB")
-  rep.connect "events", ->
-    console.log "connected to events"
-    rep.setEncoding "utf8"
-    rep.on "data", (msg) ->
-      console.log "writing from message on queue: " + msg
-  res.send "thank you"
+  # rep = context.socket("SUB")
+  # rep.connect "events", ->
+  #   console.log "connected to events"
+  #   rep.setEncoding "utf8"
+  #   rep.on "data", (msg) ->
+  #     console.log "writing from message on queue: " + msg
+  # res.send "thank you"
+
+  # TODO: This works, but it flawed.  It starts listenting when this route is triggered...
+  subHub = rabbitHub.create(
+    task: "sub"
+    channel: "myChannel"
+  )
+  subHub.on "connection", (hub) ->
+    hub.on "message", (msg) ->
+      console.log msg
+
+  subHub.connect()
 
 
 app.get "/", (req, res) ->
   # TODO not ensuring context is ready...
-  pub = context.socket("PUB")
-  sub = context.socket("SUB")
-  sub.pipe process.stdout
-  sub.connect "events", ->
-    pub.connect "events", ->
-      pub.write JSON.stringify(welcome: "rabbit.js"), "utf8"
+  # pub = context.socket("PUB")
+  # sub = context.socket("SUB")
+  # sub.pipe process.stdout
+  # sub.connect "events", ->
+  #   pub.connect "events", ->
+  #     pub.write JSON.stringify(welcome: "rabbit.js"), "utf8"
+
+  pubHub = rabbitHub.create(
+    task: "pub"
+    channel: "myChannel"
+  )
+  pubHub.on "connection", (hub) ->
+    hub.send "Hello Rabbit MQ!"
+  pubHub.connect()
 
   db.save "test", "doc2",
     foo: "hell yeah 9:41 am"

@@ -10,7 +10,6 @@
       "nodemon": "*",
       "underscore": "*",
       "riak-js": "*",
-      "rabbit.js": "*",
-      "sockjs": "*"
+      "rabbitmq-nodejs-client": "*"
   }
 }
