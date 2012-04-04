@@ -1,5 +1,11 @@
 express = require("express")
 jade = require ("jade")
+db = require("riak-js").getClient(
+  host: "127.0.0.1"
+  port: "8091"
+)
+context = require("rabbit.js").createContext("amqp://localhost")
+sockjs = require("sockjs")
 
 app = module.exports = express.createServer()
 app.configure ->
@@ -19,10 +25,35 @@ app.configure "development", ->
 app.configure "production", ->
   app.use express.errorHandler()
 
+app.get "/mq", (req, res) ->
+  console.log "reading queue"
+  rep = context.socket("SUB")
+  rep.connect "events", ->
+    console.log "connected to events"
+    rep.setEncoding "utf8"
+    rep.on "data", (msg) ->
+      console.log "writing from message on queue: " + msg
+  res.send "thank you"
+
+
 app.get "/", (req, res) ->
+  # TODO not ensuring context is ready...
+  pub = context.socket("PUB")
+  sub = context.socket("SUB")
+  sub.pipe process.stdout
+  sub.connect "events", ->
+    pub.connect "events", ->
+      pub.write JSON.stringify(welcome: "rabbit.js"), "utf8"
+
+  db.save "test", "doc2",
+    foo: "hell yeah 9:41 am"
+    title: "hello riak", ->
+      console.log "in the server save callback"
+  db.get "test", "doc2", (err, data) ->
+    console.log "found in test json: " + JSON.stringify(data)
+
   res.render "index",
     title: "node_rr - Node with Riak and RabbitMQ"
 
 app.listen 3000
 console.log "Express server listening on port %d", app.address().port
-

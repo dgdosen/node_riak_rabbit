@@ -9,6 +9,8 @@
       "klass": "*",
       "nodemon": "*",
       "underscore": "*",
-      "riak-js": "*"
+      "riak-js": "*",
+      "rabbit.js": "*",
+      "sockjs": "*"
   }
 }
