@@ -2,6 +2,7 @@
 /* mongo: mongod --rest */
 web: nodemon server.coffee
 rabbit_listen: nodemon server_mon.coffee
+/* cucumber: ./node_modules/.bin/cucumber.js */
 jasmine: bundle exec jasmine-node --coffee --autotest spec
 
 /* TODO: prod */

@@ -4,12 +4,15 @@
   , "private": true
   , "dependencies": {
       "jade": ">= 0.0.1",
+      "express": "*",
       "coffee-script": "*",
       "jasmine-node": "*",
+      "cucumber": "latest",
       "klass": "*",
       "nodemon": "*",
       "underscore": "*",
       "riak-js": "*",
+      "rabbit.js": "*",
       "rabbitmq-nodejs-client": "*"
   }
 }
