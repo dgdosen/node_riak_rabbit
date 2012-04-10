@@ -7,7 +7,7 @@
       "express": "*",
       "coffee-script": "*",
       "jasmine-node": "*",
-      "vows": "*",
+      "vows": "latest",
       "cucumber": "*",
       "klass": "*",
       "nodemon": "*",
