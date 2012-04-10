@@ -4,7 +4,13 @@ describe "Sample Test", ->
     
   it "should pass becuase it does nothing", ->
     expect("goodbye").not.toEqual("hello")
-  
+
+  it "should should look cool while doing an async test", ->
+    runs ->
+      foo = 0
+      foo++
+      expect(foo).toEqual 1
+
   # # Working with async tests the old way
   # it "shows asynchronous test", ->
   #   setTimeout (->

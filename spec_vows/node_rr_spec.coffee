@@ -1,32 +1,22 @@
 vows = require("vows")
 assert = require("assert")
-theGoodThings = require("./the-good-things")
-Strawberry = theGoodThings.Strawberry
-Banana = theGoodThings.Banana
-PeeledBanana = theGoodThings.PeeledBanana
-vows.describe("The Good Things").addBatch(
-  "A strawberry":
-    topic: new (Strawberry)
-    "is red": (strawberry) ->
-      assert.equal strawberry.color, "#ff0000"
 
-    "and tasty": (strawberry) ->
-      assert.isTrue strawberry.isTasty()
+vows.describe("Division by Zero").addBatch(
+  "when dividing a number by zero":
+    topic: ->
+      42 / 0
 
-  "A banana":
-    topic: new (Banana)
-    "when peeled *synchronously*":
-      topic: (banana) ->
-        banana.peelSync()
+    "we get Infinity": (topic) ->
+      assert.equal topic, Infinity
 
-      "returns a `PeeledBanana`": (result) ->
-        assert.instanceOf result, PeeledBanana
+  "but when dividing zero by zero":
+    topic: ->
+      0 / 0
 
-    "when peeled *asynchronously*":
-      topic: (banana) ->
-        banana.peel @callback
+    "we get a value which":
+      "is not a number": (topic) ->
+        assert.isNaN topic
 
-      "results in a `PeeledBanana`": (err, result) ->
-        assert.instanceOf result, PeeledBanana
+      "is not equal to itself": (topic) ->
+        assert.notEqual topic, topic
 ).export module
-
