@@ -26,10 +26,10 @@ app.get "/", (req, res) ->
   pub = context.socket("PUB")
   pub.connect "events", ->
     console.log "in the pub callback"
-    pub.write JSON.stringify(welcome: "rabbit.js"), "utf8"
+    pub.write JSON.stringify(welcome: "Silly Rabbit"), "utf8"
 
   res.render "index",
     title: "node_rr - Node with RabbitMQ"
 
-app.listen 3000
+app.listen 5000
 console.log "Express server listening on port %d", app.address().port
