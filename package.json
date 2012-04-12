@@ -1,18 +1,18 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "jade": ">= 0.0.1",
-      "express": "*",
-      "coffee-script": "*",
-      "jasmine-node": "*",
-      "cucumber": "*",
-      "klass": "*",
-      "nodemon": "*",
-      "underscore": "*",
-      "riak-js": "*",
-      "rabbit.js": "*",
-      "rabbitmq-nodejs-client": "*"
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "jade": "~0.23.0",
+    "express": "~2.5.9",
+    "coffee-script": "~1.3.1",
+    "jasmine-node": "~1.0.25",
+    "cucumber": "~0.2.12",
+    "klass": "*",
+    "nodemon": "~0.6.14",
+    "underscore": "*",
+    "riak-js": "~0.4.1",
+    "rabbit.js": "~0.2.0",
+    "rabbitmq-nodejs-client": "0.0.2"
   }
 }
